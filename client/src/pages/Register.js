@@ -29,10 +29,23 @@ const Register = () => {
             <form className="form" onSubmit={onSubmit}>
                 <Logo/>
                 <h3>Login</h3>
+                {/* Name Input */}
                 <FormRow 
                     type='text' 
                     name='name' 
                     value={values.name} 
+                    handleChange={handleChange} />
+                {/* Email Input */}
+                <FormRow 
+                    type='email' 
+                    name='email' 
+                    value={values.email} 
+                    handleChange={handleChange} />
+                {/* Email Input */}
+                <FormRow 
+                    type='password' 
+                    name='password' 
+                    value={values.password} 
                     handleChange={handleChange} />
                 <button type="submit" className="btn btn-block">
                     Submit
