@@ -1,0 +1,34 @@
+import React, { useState, useReducer, useContext, createContext } from 'react'
+
+// Create initial Global State
+const initialState = {
+    isLoading: false,
+    showAlert: false,
+    alertText: '',
+    alertType: ''
+}
+
+// Context provides a way to pass data through the component tree without
+// having to pass props down manually at every level
+
+// Create the context 
+const AppContext = createContext()
+
+// React uses provider pattern in Context API to share data across the tree descendant nodes.
+const AppProvider = ({ children }) => {
+    const [ state, setState ] = useState(initialState)
+
+    // Spreading initialState values to be passed down to our components. 
+    // children refers to our application
+    return (
+        <AppContext.Provider value={{...state}}>
+            {children}
+        </AppContext.Provider>
+        )
+}
+
+// useAppContext allows to use the AppContext everywhere so I can acess wherever is in the value
+const useAppContext = () => {
+    return useContext(AppContext)
+}
+export { AppProvider, initialState, useAppContext }
