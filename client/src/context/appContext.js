@@ -1,5 +1,5 @@
-import React, { useState, useReducer, useContext, createContext } from 'react'
-
+import React, { useReducer, useContext, createContext } from 'react'
+import reducer from './reducer'
 // Create initial Global State
 const initialState = {
     isLoading: false,
@@ -15,8 +15,9 @@ const initialState = {
 const AppContext = createContext()
 
 // React uses provider pattern in Context API to share data across the tree descendant nodes.
+//useReducer: reducer is going to be the function which will handle our dispatch 
 const AppProvider = ({ children }) => {
-    const [ state, setState ] = useState(initialState)
+    const [ state, dispatch ] = useReducer(reducer,initialState)
 
     // Spreading initialState values to be passed down to our components. 
     // children refers to our application
