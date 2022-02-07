@@ -1,6 +1,6 @@
 import React, { useReducer, useContext, createContext } from 'react'
 import reducer from './reducer'
-import { DISPLAY_ALERT } from "./actions"
+import { DISPLAY_ALERT, CLEAR_ALERT } from "./actions"
 
 // Create initial Global State
 const initialState = {
@@ -23,11 +23,18 @@ const AppProvider = ({ children }) => {
 
     const displayAlert = () => {
         dispatch({type: DISPLAY_ALERT})
+        clearAlert()
+    }
+
+    const clearAlert = () => {
+        setTimeout(()=>{
+            dispatch({type: CLEAR_ALERT})
+        },3000)
     }
     // Spreading initialState values to be passed down to our components. 
     // children refers to our application
     return (
-        <AppContext.Provider value={{...state, displayAlert}}>
+        <AppContext.Provider value={{...state, displayAlert, clearAlert}}>
             {children}
         </AppContext.Provider>
         )

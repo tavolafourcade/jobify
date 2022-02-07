@@ -12,7 +12,7 @@ const initialState = {
 
 const Register = () => {
     // useAppContext() brings the initial global State of the appContext.js
-    const { isLoading, showAlert, displayAlert } = useAppContext()
+    const { isLoading, showAlert, displayAlert, clearAlert } = useAppContext()
     const [values, setValues] = useState(initialState)
     // global state and useNavitage
 
@@ -31,6 +31,7 @@ const Register = () => {
             displayAlert()
             return
         }
+        clearAlert()
         console.log('VALUES',values)
     }
 
