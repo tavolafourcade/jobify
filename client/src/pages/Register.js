@@ -12,7 +12,7 @@ const initialState = {
 
 const Register = () => {
     // useAppContext() brings the initial global State of the appContext.js
-    const { isLoading, showAlert } = useAppContext()
+    const { isLoading, showAlert, displayAlert } = useAppContext()
     const [values, setValues] = useState(initialState)
     // global state and useNavitage
 
@@ -20,12 +20,18 @@ const Register = () => {
         setValues({...values, isMember:!values.isMember})
     }
     const handleChange = (e) =>{
-        console.log(e.target)
+        setValues({...values, [e.target.name]: e.target.value})
     } 
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log(e.target)
+        const { name, email, password, isMember } = values
+        // If user doesn't write email, password or name (in case is not a member only)
+        if(!email || !password || (!isMember && !name)){
+            displayAlert()
+            return
+        }
+        console.log('VALUES',values)
     }
 
     return (
