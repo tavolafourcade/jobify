@@ -5,7 +5,7 @@ import errorHandlerMiddleware from './middleware/error-handler.js'
 
 // Set up a dummy route
 app.get('/', (req, res) => {
-	throw new Error('Error!!!')
+	// throw new Error('Error!!!')
 	res.send('Welcome!')
 })
 
