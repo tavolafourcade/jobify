@@ -1,5 +1,7 @@
 import express from 'express'
 const app = express()
+import dotenv from 'dotenv'
+dotenv.config()
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
 
