@@ -1,12 +1,8 @@
 import User from "../models/User.js"
 const register = async (req, res, next) => {
-    try {
-        // In req.body all the values will be located, and send them into MongoDB
-        const user = await User.create(req.body)
-        res.status(201).json({user})
-    } catch (error) {
-        next(error)
-    }
+    // In req.body all the values will be located, and send them into MongoDB
+    const user = await User.create(req.body)
+    res.status(201).json({user})
 }
 
 const login = async (req, res) => {
