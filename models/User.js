@@ -38,5 +38,9 @@ const USerSchema = new mongoose.Schema({
     },
 })
 
+USerSchema.pre('save',function(){
+    console.log(this.password);
+})
+
 // Exporting the User collection
 export default mongoose.model('User', USerSchema)
