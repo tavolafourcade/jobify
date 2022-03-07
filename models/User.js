@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import validator from "validator"
-
+import bcrypt from "bcryptjs"
 // Creating the structure of our user
 const USerSchema = new mongoose.Schema({
     name: {
@@ -38,8 +38,12 @@ const USerSchema = new mongoose.Schema({
     },
 })
 
-USerSchema.pre('save',function(){
-    console.log(this.password);
+USerSchema.pre('save',async function(){
+    // console.log(this.password);
+
+    // Hashing the password
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt)
 })
 
 // Exporting the User collection
