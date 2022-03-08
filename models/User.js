@@ -46,5 +46,8 @@ USerSchema.pre('save',async function(){
     this.password = await bcrypt.hash(this.password, salt)
 })
 
+UserSchema.methods.createJWT = function() {
+    console.log(this)
+}
 // Exporting the User collection
 export default mongoose.model('User', USerSchema)
