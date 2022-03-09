@@ -1,8 +1,9 @@
 import mongoose from "mongoose"
 import validator from "validator"
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 // Creating the structure of our user
-const USerSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please provide name'],
@@ -38,7 +39,7 @@ const USerSchema = new mongoose.Schema({
     },
 })
 
-USerSchema.pre('save',async function(){
+UserSchema.pre('save',async function(){
     // console.log(this.password);
 
     // Hashing the password
@@ -47,7 +48,7 @@ USerSchema.pre('save',async function(){
 })
 
 UserSchema.methods.createJWT = function() {
-    console.log(this)
+    return jwt.sign({userId:this._id}, 'jwtSecret',{expiresIn:'1d'})
 }
 // Exporting the User collection
-export default mongoose.model('User', USerSchema)
+export default mongoose.model('User', UserSchema)

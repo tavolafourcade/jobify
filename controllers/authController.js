@@ -18,9 +18,9 @@ const register = async (req, res, next) => {
     // In req.body all the values will be located, and send them into MongoDB
     const user = await User.create({name, email, password})
 
-    // Invoking a JWT method
-    user.createJWT()
-    res.status(StatusCodes.CREATED).json({user})
+    // Invoking a JWT method and assign it to a variable
+    const token = user.createJWT()
+    res.status(StatusCodes.CREATED).json({user, token})
 }
 
 const login = async (req, res) => {
