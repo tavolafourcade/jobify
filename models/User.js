@@ -48,7 +48,7 @@ UserSchema.pre('save',async function(){
 })
 
 UserSchema.methods.createJWT = function() {
-    return jwt.sign({userId:this._id}, 'jwtSecret',{expiresIn:'1d'})
+    return jwt.sign({userId:this._id}, process.env.JWT_SECRET,{expiresIn:process.env.JWT_LIFETIME})
 }
 // Exporting the User collection
 export default mongoose.model('User', UserSchema)
