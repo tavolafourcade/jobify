@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide password'],
         minlength:6,
+        select: false
     },
     lastname: {
         type: String,
@@ -31,7 +32,7 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         default: 'lastname'
     },
-    lastname: {
+    location: {
         type: String,
         maxlength:20,
         trim: true,
