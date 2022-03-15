@@ -1,7 +1,7 @@
 const Dashboard = () => {
     return (
         <div>
-            Dashobard!
+            Dashobard PAge!
         </div>
     )
 }
