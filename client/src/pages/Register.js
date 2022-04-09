@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Wrapper from "../assets/wrappers/RegisterPage"
 import { Logo, FormRow, Alert } from "../components"
 import { useAppContext } from "../context/appContext"
@@ -12,7 +12,7 @@ const initialState = {
 
 const Register = () => {
     // useAppContext() brings the initial global State of the appContext.js
-    const { isLoading, showAlert, displayAlert, clearAlert } = useAppContext()
+    const { isLoading, showAlert, displayAlert, clearAlert, registerUser } = useAppContext()
     const [values, setValues] = useState(initialState)
     // global state and useNavitage
 
@@ -31,8 +31,16 @@ const Register = () => {
             displayAlert()
             return
         }
+
+        const currentUser = { name, email, password }
+        // Checking if the user is a member
+        if(isMember){
+            console.log('Already a member')
+        } else {
+            registerUser(currentUser)
+        }
         clearAlert()
-        console.log('VALUES',values)
+        console.log ('VALUES',values)
     }
 
     return (
@@ -64,7 +72,7 @@ const Register = () => {
                     name='password' 
                     value={values.password} 
                     handleChange={handleChange} />
-                <button type="submit" className="btn btn-block">
+                <button type="submit" className="btn btn-block" disabled={isLoading}>
                     Submit
                 </button>
                 <p>
