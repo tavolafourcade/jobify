@@ -7,7 +7,10 @@ const initialState = {
     isLoading: false,
     showAlert: false,
     alertText: '',
-    alertType: ''
+    alertType: '',
+    user: null,
+    token: null,
+    userLocation: ''
 }
 
 // Context provides a way to pass data through the component tree without
