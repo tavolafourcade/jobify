@@ -1,6 +1,12 @@
 import React, { useReducer, useContext, createContext } from 'react'
 import reducer from './reducer'
-import { DISPLAY_ALERT, CLEAR_ALERT } from "./actions"
+import { 
+    DISPLAY_ALERT,
+    CLEAR_ALERT,
+    REGISTER_USER_BEGIN,
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_ERROR
+} from "./actions"
 
 // Create initial Global State
 const initialState = {
@@ -34,10 +40,14 @@ const AppProvider = ({ children }) => {
             dispatch({type: CLEAR_ALERT})
         },3000)
     }
+
+    const registerUser = async (currentUser) => {
+        console.log(currentUser)
+    }
     // Spreading initialState values to be passed down to our components. 
     // children refers to our application
     return (
-        <AppContext.Provider value={{...state, displayAlert, clearAlert}}>
+        <AppContext.Provider value={{...state, displayAlert, clearAlert, registerUser}}>
             {children}
         </AppContext.Provider>
         )
