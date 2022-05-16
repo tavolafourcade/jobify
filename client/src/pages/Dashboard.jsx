@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
-const Dashboard = () => {
+function Dashboard() {
   // EXAMPLE that is not used anymore
   // const fetchData = async () => {
   //   try {
