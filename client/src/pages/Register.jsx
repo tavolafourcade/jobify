@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Wrapper from '../assets/wrappers/RegisterPage'
 import { Logo, FormRow, Alert } from '../components'
 import { useAppContext } from '../context/appContext'
@@ -11,9 +12,10 @@ const initialState = {
 }
 
 function Register() {
+  const navigate = useNavigate()
   // useAppContext() brings the initial global State of the appContext.js
   const {
-    isLoading, showAlert, displayAlert, clearAlert, registerUser,
+    user, isLoading, showAlert, displayAlert, clearAlert, registerUser,
   } = useAppContext()
   const [ values, setValues ] = useState(initialState)
   // global state and useNavitage
@@ -47,6 +49,14 @@ function Register() {
     clearAlert()
     console.log('VALUES', values)
   }
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/')
+      }, 3000)
+    }
+  }, [ user, navigate ])
 
   return (
     <Wrapper className="full-page">
