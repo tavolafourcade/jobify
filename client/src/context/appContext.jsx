@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, {
   useReducer, useContext, createContext, useMemo,
 } from 'react'
@@ -11,15 +12,19 @@ import {
   REGISTER_USER_ERROR,
 } from './actions'
 
+const token = localStorage.getItem('token')
+const user = localStorage.getItem('user')
+const userLocation = localStorage.getItem('location')
+
 // Create initial Global State
 const initialState = {
   isLoading   : false,
   showAlert   : false,
   alertText   : '',
   alertType   : '',
-  user        : null,
-  token       : null,
-  userLocation: '',
+  user        : user ? JSON.parse(user) : null,
+  token,
+  userLocation: userLocation || '',
   jobLocation : '',
 }
 
@@ -45,6 +50,18 @@ function AppProvider({ children }) {
     clearAlert()
   }
 
+  const addUserToLocalStorage = (user, token, location) => {
+    localStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem('token', token)
+    localStorage.setItem('location', location)
+  }
+
+  // const removeUserFromLocalStorage = () => {
+  //   localStorage.removeItem('user')
+  //   localStorage.removeItem('token')
+  //   localStorage.removeItem('location')
+  // }
+
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN })
     try {
@@ -55,6 +72,7 @@ function AppProvider({ children }) {
         type   : REGISTER_USER_SUCCESS,
         payload: { user, token, userLocation },
       })
+      addUserToLocalStorage(user, token, userLocation)
     } catch (error) {
       console.log('error', error.response)
       dispatch({
