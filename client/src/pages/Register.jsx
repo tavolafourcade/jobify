@@ -50,6 +50,7 @@ function Register() {
     console.log('VALUES', values)
   }
 
+  // PROBLEMA!
   useEffect(() => {
     if (user) {
       setTimeout(() => {
