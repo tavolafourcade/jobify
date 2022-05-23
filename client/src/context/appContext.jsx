@@ -10,6 +10,9 @@ import {
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
+  // LOGIN_USER_BEGIN,
+  // LOGIN_USER_SUCCESS,
+  // LOGIN_USER_ERROR,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -82,9 +85,13 @@ function AppProvider({ children }) {
     }
     clearAlert()
   }
+
+  const loginUser = async (currentUser) => {
+    console.log(currentUser)
+  }
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
-    ...state, displayAlert, clearAlert, registerUser,
+    ...state, displayAlert, clearAlert, registerUser, loginUser,
   }))
   // children refers to our application
   return (

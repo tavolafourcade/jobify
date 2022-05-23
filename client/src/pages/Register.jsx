@@ -15,7 +15,7 @@ function Register() {
   const navigate = useNavigate()
   // useAppContext() brings the initial global State of the appContext.js
   const {
-    user, isLoading, showAlert, displayAlert, clearAlert, registerUser,
+    user, isLoading, showAlert, displayAlert, clearAlert, registerUser, loginUser,
   } = useAppContext()
   const [ values, setValues ] = useState(initialState)
   // global state and useNavitage
@@ -42,7 +42,7 @@ function Register() {
     const currentUser = { name, email, password }
     // Checking if the user is a member
     if (isMember) {
-      console.log('Already a member')
+      loginUser(currentUser)
     } else {
       registerUser(currentUser)
     }
