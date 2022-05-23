@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import BadRequestError from './bad-request.js';
 import NotFoundError from './not-found.js';
-import unAuthenticatedError from './unAuthenticated.js';
+import UnAuthenticatedError from './unAuthenticated.js';
 
-export { BadRequestError, NotFoundError, unAuthenticatedError };
+export { BadRequestError, NotFoundError, UnAuthenticatedError };

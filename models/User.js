@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable no-underscore-dangle */
 import mongoose from 'mongoose';
 import validator from 'validator';
