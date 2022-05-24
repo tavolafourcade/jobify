@@ -13,6 +13,9 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -105,9 +108,33 @@ function AppProvider({ children }) {
     }
     clearAlert()
   }
+
+  const setupUser = async (currentUser, endPoint, alertText) => {
+    dispatch({ type: SETUP_USER_BEGIN })
+    try {
+      const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
+      console.log('currentUserLogged', data)
+      console.log('ENDPOINT', endPoint)
+      const { user, token, userLocation } = data
+      dispatch({
+        type   : SETUP_USER_SUCCESS,
+        payload: {
+          user, token, userLocation, alertText,
+        },
+      })
+      addUserToLocalStorage(user, token, userLocation)
+    } catch (error) {
+      dispatch({
+        type   : SETUP_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      })
+    }
+    clearAlert()
+  }
+
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
-    ...state, displayAlert, clearAlert, registerUser, loginUser,
+    ...state, displayAlert, clearAlert, registerUser, loginUser, setupUser,
   }))
   // children refers to our application
   return (
