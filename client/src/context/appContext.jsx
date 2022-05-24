@@ -10,9 +10,9 @@ import {
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
-  // LOGIN_USER_BEGIN,
-  // LOGIN_USER_SUCCESS,
-  // LOGIN_USER_ERROR,
+  LOGIN_USER_BEGIN,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_ERROR,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -69,7 +69,7 @@ function AppProvider({ children }) {
     dispatch({ type: REGISTER_USER_BEGIN })
     try {
       const res = await axios.post('/api/v1/auth/register', currentUser)
-      console.log('currentUser', res)
+      console.log('currentUserRegistered', res)
       const { user, token, userLocation } = res.data
       dispatch({
         type   : REGISTER_USER_SUCCESS,
@@ -87,7 +87,23 @@ function AppProvider({ children }) {
   }
 
   const loginUser = async (currentUser) => {
-    console.log(currentUser)
+    dispatch({ type: LOGIN_USER_BEGIN })
+    try {
+      const { data } = await axios.post('/api/v1/auth/login', currentUser)
+      console.log('currentUserLogged', data)
+      const { user, token, userLocation } = data
+      dispatch({
+        type   : LOGIN_USER_SUCCESS,
+        payload: { user, token, userLocation },
+      })
+      addUserToLocalStorage(user, token, userLocation)
+    } catch (error) {
+      dispatch({
+        type   : LOGIN_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      })
+    }
+    clearAlert()
   }
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
