@@ -109,7 +109,7 @@ function AppProvider({ children }) {
     clearAlert()
   }
 
-  const setupUser = async (currentUser, endPoint, alertText) => {
+  const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN })
     try {
       const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
