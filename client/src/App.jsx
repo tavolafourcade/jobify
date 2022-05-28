@@ -8,11 +8,11 @@ function App() {
   return (
     <BrowserRouter className="App">
       <Routes>
-        <Route path="/">
-          <Route path="addjob" element={<AddJob />} />
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Stats />} />
           <Route path="all-jobs" element={<AllJobs />} />
+          <Route path="add-job" element={<AddJob />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="stats" element={<Stats />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/landing" element={<Landing />} />
