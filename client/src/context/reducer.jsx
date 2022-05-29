@@ -11,7 +11,11 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from './actions'
+
+// eslint-disable-next-line import/no-cycle
+import { initialState } from './appContext'
 
 const reducer = (state, action) => {
   // Reducer to show a danger alert
@@ -123,6 +127,17 @@ const reducer = (state, action) => {
       showSidebar: !state.showSidebar,
     }
   }
+
+  if (action.type === LOGOUT_USER) {
+    return {
+      ...initialState,
+      token       : null,
+      user        : null,
+      userLocation: '',
+      jobLocation : '',
+    }
+  }
+
   throw new Error(`no such action: ${action.type}`)
 }
 

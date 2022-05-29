@@ -17,6 +17,7 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -69,11 +70,11 @@ function AppProvider({ children }) {
     localStorage.setItem('location', location)
   }
 
-  // const removeUserFromLocalStorage = () => {
-  //   localStorage.removeItem('user')
-  //   localStorage.removeItem('token')
-  //   localStorage.removeItem('location')
-  // }
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+    localStorage.removeItem('location')
+  }
 
   // const registerUser = async (currentUser) => {
   //   dispatch({ type: REGISTER_USER_BEGIN })
@@ -139,9 +140,16 @@ function AppProvider({ children }) {
     clearAlert()
   }
 
+  const logoutUser = () => {
+    dispatch({
+      type: LOGOUT_USER,
+    })
+    removeUserFromLocalStorage()
+  }
+
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
-    ...state, displayAlert, clearAlert, setupUser, toggleSidebar,
+    ...state, displayAlert, clearAlert, setupUser, toggleSidebar, logoutUser,
   }))
   // children refers to our application
   return (
