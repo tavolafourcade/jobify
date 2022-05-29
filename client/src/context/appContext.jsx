@@ -16,6 +16,7 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -32,6 +33,7 @@ const initialState = {
   token,
   userLocation: userLocation || '',
   jobLocation : '',
+  showSidebar : false,
 }
 
 // Context provides a way to pass data through the component tree without
@@ -53,6 +55,11 @@ function AppProvider({ children }) {
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT })
+    clearAlert()
+  }
+
+  const toggleSidebar = () => {
+    dispatch({ type: TOGGLE_SIDEBAR })
     clearAlert()
   }
 
@@ -134,7 +141,7 @@ function AppProvider({ children }) {
 
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
-    ...state, displayAlert, clearAlert, setupUser,
+    ...state, displayAlert, clearAlert, setupUser, toggleSidebar,
   }))
   // children refers to our application
   return (
