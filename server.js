@@ -15,6 +15,8 @@ import jobsRouter from './routes/jobsRoutes.js';
 // middleware
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
+// since we're on the server the path is a little different
+import authenticateUser from './middleware/auth.js';
 
 const app = express();
 
@@ -39,7 +41,7 @@ app.get('/api/v1', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/jobs', jobsRouter);
+app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 
 // Using the middleware to look for all Http methods and Routes.
 // If none are found
