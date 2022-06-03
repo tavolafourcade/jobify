@@ -101,9 +101,13 @@ function AppProvider({ children }) {
     removeUserFromLocalStorage()
   }
 
+  const updateUser = async (currentUser) => {
+    console.log('currentUser', currentUser)
+  }
+
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
-    ...state, displayAlert, clearAlert, setupUser, toggleSidebar, logoutUser,
+    ...state, displayAlert, clearAlert, setupUser, toggleSidebar, logoutUser, updateUser,
   }))
   // children refers to our application
   return (
