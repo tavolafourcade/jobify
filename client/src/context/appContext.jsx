@@ -102,7 +102,17 @@ function AppProvider({ children }) {
   }
 
   const updateUser = async (currentUser) => {
-    console.log('currentUser', currentUser)
+    try {
+      const { data } = await axios.patch('/api/v1/auth/updateUser', currentUser, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      console.log('data', data)
+    } catch (error) {
+      console.log('ERROR', error.response)
+      console.log('TOKEN', state.token)
+    }
   }
 
   // Spreading initialState values to be passed down to our components.
