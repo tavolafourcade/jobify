@@ -44,7 +44,15 @@ function AppProvider({ children }) {
   const [ state, dispatch ] = useReducer(reducer, initialState)
 
   // Axios Global setup
-  axios.defaults.headers.common.Authorization = `Bearer ${state.token}`
+  // axios.defaults.headers.common.Authorization = `Bearer ${state.token}`
+
+  const authFetch = axios.create({
+    baseURL: '/api/v1',
+    headers: {
+      Authorization: `Bearer ${state.token}`,
+    },
+  })
+
   const clearAlert = () => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT })
@@ -105,7 +113,7 @@ function AppProvider({ children }) {
 
   const updateUser = async (currentUser) => {
     try {
-      const { data } = await axios.patch('/api/v1/auth/updateUser', currentUser)
+      const { data } = await authFetch.patch('/auth/updateUser', currentUser)
       console.log('data', data)
     } catch (error) {
       console.log('ERROR', error.response)
