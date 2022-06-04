@@ -48,10 +48,32 @@ function AppProvider({ children }) {
 
   const authFetch = axios.create({
     baseURL: '/api/v1',
-    headers: {
-      Authorization: `Bearer ${state.token}`,
-    },
+    // headers: {
+    //   Authorization: `Bearer ${state.token}`,
+    // },
   })
+
+  // request
+  authFetch.interceptors.request.use(
+    (config) => {
+      // eslint-disable-next-line no-param-reassign
+      config.headers.common.Authorization = `Bearer ${state.token}`
+      return config
+    },
+    (error) => Promise.reject(error),
+  )
+
+  // response
+  authFetch.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      console.log(error.response)
+      if (error.response.status === 401) {
+        console.log('AUTH ERROR')
+      }
+      return Promise.reject(error)
+    },
+  )
 
   const clearAlert = () => {
     setTimeout(() => {
@@ -116,8 +138,8 @@ function AppProvider({ children }) {
       const { data } = await authFetch.patch('/auth/updateUser', currentUser)
       console.log('data', data)
     } catch (error) {
-      console.log('ERROR', error.response)
-      console.log('TOKEN', state.token)
+      // console.log('ERROR', error.response)
+      // console.log('TOKEN', state.token)
     }
   }
 
