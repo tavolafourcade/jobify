@@ -24,15 +24,23 @@ const userLocation = localStorage.getItem('location')
 
 // Create initial Global State
 const initialState = {
-  isLoading   : false,
-  showAlert   : false,
-  alertText   : '',
-  alertType   : '',
-  user        : user ? JSON.parse(user) : null,
+  isLoading     : false,
+  showAlert     : false,
+  alertText     : '',
+  alertType     : '',
+  user          : user ? JSON.parse(user) : null,
   token,
-  userLocation: userLocation || '',
-  jobLocation : '',
-  showSidebar : false,
+  userLocation  : userLocation || '',
+  showSidebar   : false,
+  isEditing     : false, // to go into edition mode
+  editJobId     : '',
+  position      : '',
+  company       : '',
+  jobLocation   : userLocation || '',
+  jobTypeOptions: [ 'full-time', 'part-time', 'remote', 'internship' ],
+  jobType       : 'full-time',
+  statusOptions : [ 'pending', 'interview', 'declined' ],
+  status        : 'pending',
 }
 
 // Context provides a way to pass data through the component tree without
