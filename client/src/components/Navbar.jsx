@@ -8,7 +8,7 @@ function Navbar() {
   const { user, logoutUser, toggleSidebar } = useAppContext()
   const [ showLogout, setShowLogout ] = useState(false)
   const logoutRef = useRef()
-  console.log('SHOWLOGOUT', showLogout)
+  // console.log('SHOWLOGOUT', showLogout)
 
   useEffect(
     () => {

@@ -39,7 +39,7 @@ function Profile() {
           />
           <FormRow
             type="text"
-            name="lastName"
+            name="lastname"
             value={lastname}
             labelText="Last Name"
             handleChange={(e) => setLastname(e.target.value)}

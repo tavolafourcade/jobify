@@ -70,9 +70,10 @@ function AppProvider({ children }) {
   authFetch.interceptors.response.use(
     (response) => response,
     (error) => {
-      console.log(error.response)
+      // console.log(error.response)
       if (error.response.status === 401) {
-        console.log('AUTH ERROR')
+        // eslint-disable-next-line no-use-before-define
+        logoutUser()
       }
       return Promise.reject(error)
     },
@@ -110,8 +111,8 @@ function AppProvider({ children }) {
     dispatch({ type: SETUP_USER_BEGIN })
     try {
       const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
-      console.log('currentUserLogged', data)
-      console.log('ENDPOINT', endPoint)
+      // console.log('currentUserLogged', data)
+      // console.log('ENDPOINT', endPoint)
       const { user, token, userLocation } = data
       dispatch({
         type   : SETUP_USER_SUCCESS,
@@ -150,10 +151,12 @@ function AppProvider({ children }) {
       })
       addUserToLocalStorage({ user, token, location })
     } catch (error) {
-      dispatch({
-        type   : UPDATE_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      })
+      if (error.response.status !== 401) {
+        dispatch({
+          type   : UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        })
+      }
     }
     clearAlert()
   }
