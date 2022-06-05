@@ -1,5 +1,16 @@
+/* eslint-disable import/extensions */
+import { StatusCodes } from 'http-status-codes';
+import Job from '../models/Job.js';
+import { BadRequestError } from '../errors/index.js';
+// UnAuthenticatedError
 const createJob = async (req, res) => {
-  res.send('createJob');
+  const { position, company } = req.body;
+  if (!position || !company) {
+    throw new BadRequestError('Please provide all values');
+  }
+  req.body.createdBy = req.user.userId;
+  const job = await Job.create(req.body);
+  res.status(StatusCodes.CREATED).json({ job });
 };
 
 const deleteJob = async (req, res) => {
