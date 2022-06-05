@@ -1,17 +1,14 @@
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
-  // REGISTER_USER_BEGIN,
-  // REGISTER_USER_SUCCESS,
-  // REGISTER_USER_ERROR,
-  // LOGIN_USER_BEGIN,
-  // LOGIN_USER_SUCCESS,
-  // LOGIN_USER_ERROR,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
 } from './actions'
 
 // eslint-disable-next-line import/no-cycle
@@ -36,62 +33,6 @@ const reducer = (state, action) => {
       alertText: '',
     }
   }
-
-  // if (action.type === REGISTER_USER_BEGIN) {
-  //   return { ...state, isLoading: true }
-  // }
-
-  // if (action.type === REGISTER_USER_SUCCESS) {
-  //   return {
-  //     ...state,
-  //     isLoading   : false,
-  //     token       : action.payload.token,
-  //     user        : action.payload.user,
-  //     userLocation: action.payload.userLocation,
-  //     jobLocation : action.payload.jobLocation,
-  //     showAlert   : true,
-  //     alertType   : 'success',
-  //     alertText   : 'User Registration Successful! Redirecting...',
-  //   }
-  // }
-
-  // if (action.type === REGISTER_USER_ERROR) {
-  //   return {
-  //     ...state,
-  //     isLoading: false,
-  //     showAlert: true,
-  //     alertType: 'danger',
-  //     alertText: action.payload.msg,
-  //   }
-  // }
-
-  // if (action.type === LOGIN_USER_BEGIN) {
-  //   return { ...state, isLoading: true }
-  // }
-
-  // if (action.type === LOGIN_USER_SUCCESS) {
-  //   return {
-  //     ...state,
-  //     isLoading   : false,
-  //     token       : action.payload.token,
-  //     user        : action.payload.user,
-  //     userLocation: action.payload.userLocation,
-  //     jobLocation : action.payload.jobLocation,
-  //     showAlert   : true,
-  //     alertType   : 'success',
-  //     alertText   : 'Login Successful! Redirecting...',
-  //   }
-  // }
-
-  // if (action.type === LOGIN_USER_ERROR) {
-  //   return {
-  //     ...state,
-  //     isLoading: false,
-  //     showAlert: true,
-  //     alertType: 'danger',
-  //     alertText: action.payload.msg,
-  //   }
-  // }
 
   if (action.type === SETUP_USER_BEGIN) {
     return { ...state, isLoading: true }
@@ -135,6 +76,34 @@ const reducer = (state, action) => {
       user        : null,
       userLocation: '',
       jobLocation : '',
+    }
+  }
+
+  if (action.type === UPDATE_USER_BEGIN) {
+    return { ...state, isLoading: true }
+  }
+
+  if (action.type === UPDATE_USER_SUCCESS) {
+    return {
+      ...state,
+      isLoading   : false,
+      token       : action.payload.token,
+      user        : action.payload.user,
+      userLocation: action.payload.userLocation,
+      jobLocation : action.payload.jobLocation,
+      showAlert   : true,
+      alertType   : 'success',
+      alertText   : 'User Profile Updated!',
+    }
+  }
+
+  if (action.type === UPDATE_USER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
     }
   }
 

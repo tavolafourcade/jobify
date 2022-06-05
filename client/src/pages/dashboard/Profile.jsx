@@ -10,7 +10,7 @@ function Profile() {
 
   const [ name, setName ] = useState(user?.name)
   const [ email, setEmail ] = useState(user?.email)
-  const [ lastname, setLastname ] = useState(user?.lastname)
+  const [ lastname, setLastname ] = useState(user?.lastname || '')
   const [ location, setLocation ] = useState(user?.location)
 
   const handleSubmit = (e) => {
