@@ -11,8 +11,8 @@ function AddJob() {
     position,
     company,
     jobLocation,
-    // jobType,
-    // jobTypeOptions,
+    jobType,
+    jobTypeOptions,
     // status,
     // statusOptions,
   } = useAppContext()
@@ -41,6 +41,16 @@ function AddJob() {
           {/* location */}
           <FormRow type="text" name="jobLocation" labelText="job location" defaultValue={jobLocation} handleChange={handleJobInput} />
           {/* job type */}
+          <div className="form-row">
+            <label htmlFor="jobType" className="form-label">job type</label>
+            <select name="jobType" id="jobType" value={jobType} className="form-input" onChange={handleJobInput}>
+              {jobTypeOptions.map((itemValue) => (
+                <option key={itemValue} value={itemValue}>
+                  {itemValue}
+                </option>
+              ))}
+            </select>
+          </div>
           {/* job status */}
           <div className="btn-container" />
           <button type="submit" className="btn btn-block submit-btn" onClick={handleSubmit}>submit</button>
