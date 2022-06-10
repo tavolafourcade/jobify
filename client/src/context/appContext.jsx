@@ -16,6 +16,7 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -169,10 +170,25 @@ function AppProvider({ children }) {
     clearAlert()
   }
 
+  const handleChange = ({ name, value }) => {
+    dispatch({
+      type   : HANDLE_CHANGE,
+      payload: { name, value },
+    })
+  }
+
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
-    ...state, displayAlert, clearAlert, setupUser, toggleSidebar, logoutUser, updateUser,
+    ...state,
+    displayAlert,
+    clearAlert,
+    setupUser,
+    toggleSidebar,
+    logoutUser,
+    updateUser,
+    handleChange,
   }))
+
   // children refers to our application
   return (
     <AppContext.Provider value={contextValues}>
