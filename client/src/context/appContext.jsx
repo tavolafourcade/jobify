@@ -17,6 +17,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
+  CLEAR_VALUES,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -177,6 +178,12 @@ function AppProvider({ children }) {
     })
   }
 
+  const clearValues = () => {
+    dispatch({
+      type: CLEAR_VALUES,
+    })
+  }
+
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
     ...state,
@@ -187,6 +194,7 @@ function AppProvider({ children }) {
     logoutUser,
     updateUser,
     handleChange,
+    clearValues,
   }))
 
   // children refers to our application

@@ -6,6 +6,7 @@ import { Alert, FormRow, FormRowSelect } from '../../components'
 function AddJob() {
   const {
     isEditing,
+    isLoading,
     showAlert,
     displayAlert,
     position,
@@ -16,6 +17,7 @@ function AddJob() {
     status,
     statusOptions,
     handleChange,
+    clearValues,
   } = useAppContext()
 
   const handleSubmit = (e) => {
@@ -36,18 +38,29 @@ function AddJob() {
         {showAlert && <Alert /> }
         <div className="form-center">
           {/* position */}
-          <FormRow type="text" name="position" defaultValue={position} handleChange={handleJobInput} />
+          <FormRow type="text" name="position" value={position} handleChange={handleJobInput} />
           {/* company */}
-          <FormRow type="text" name="company" defaultValue={company} handleChange={handleJobInput} />
+          <FormRow type="text" name="company" value={company} handleChange={handleJobInput} />
           {/* location */}
-          <FormRow type="text" name="jobLocation" labelText="job location" defaultValue={jobLocation} handleChange={handleJobInput} />
+          <FormRow type="text" name="jobLocation" labelText="job location" value={jobLocation} handleChange={handleJobInput} />
           {/* job status */}
           <FormRowSelect name="status" value={status} handleChange={handleJobInput} list={statusOptions} />
           {/* job type */}
           <FormRowSelect name="jobType" labelText="Job Type" value={jobType} handleChange={handleJobInput} list={jobTypeOptions} />
 
-          <div className="btn-container" />
-          <button type="submit" className="btn btn-block submit-btn" onClick={handleSubmit}>submit</button>
+          <div className="btn-container">
+            <button type="submit" className="btn btn-block submit-btn" onClick={handleSubmit} disabled={isLoading}>submit</button>
+            <button
+              type="submit"
+              className="btn btn-block clear-btn"
+              onClick={(e) => {
+                e.preventDefault() // Prevent the page from refreshing
+                clearValues()
+              }}
+            >
+              clear
+            </button>
+          </div>
         </div>
       </form>
     </Wrapper>

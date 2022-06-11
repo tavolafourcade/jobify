@@ -10,6 +10,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
+  CLEAR_VALUES,
 } from './actions'
 
 // eslint-disable-next-line import/no-cycle
@@ -112,6 +113,24 @@ const reducer = (state, action) => {
     return {
       ...state,
       [action.payload.name]: action.payload.value,
+    }
+  }
+
+  if (action.type === CLEAR_VALUES) {
+    // eslint-disable-next-line no-shadow
+    const initialState = {
+      isEditing  : false,
+      editJobId  : '',
+      position   : '',
+      company    : '',
+      jobLocation: state.userLocation,
+      jobType    : 'full-time',
+      status     : 'pending',
+    }
+
+    return {
+      ...state,
+      ...initialState,
     }
   }
 
