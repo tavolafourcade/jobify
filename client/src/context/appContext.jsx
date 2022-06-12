@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import React, {
-  useReducer, useContext, createContext, useMemo,
+  useReducer, useContext, createContext, useMemo, useEffect,
 } from 'react'
 import axios from 'axios'
 // eslint-disable-next-line import/no-cycle
@@ -21,6 +21,8 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_SUCCESS,
   CREATE_JOB_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -46,6 +48,10 @@ const initialState = {
   jobType       : 'full-time',
   statusOptions : [ 'pending', 'interview', 'declined' ],
   status        : 'pending',
+  jobs          : [],
+  totalJobs     : 0,
+  page          : 1,
+  numOfPages    : 1,
 }
 
 // Context provides a way to pass data through the component tree without
@@ -210,6 +216,27 @@ function AppProvider({ children }) {
     clearAlert()
   }
 
+  const getJobs = async () => {
+    const url = '/jobs'
+    dispatch({ type: GET_JOBS_BEGIN })
+    try {
+      const { data } = await authFetch(url) // By default is get request
+      const { jobs, totalJobs, numOfPages } = data
+      dispatch({
+        type   : GET_JOBS_SUCCESS,
+        payload: { jobs, totalJobs, numOfPages },
+      })
+    } catch (error) {
+      console.log('error.response', error.response)
+      logoutUser()
+    }
+    clearAlert()
+  }
+
+  useEffect(() => {
+    getJobs()
+  }, [])
+
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
     ...state,
@@ -222,6 +249,7 @@ function AppProvider({ children }) {
     handleChange,
     clearValues,
     createJob,
+    getJobs,
   }))
 
   // children refers to our application
