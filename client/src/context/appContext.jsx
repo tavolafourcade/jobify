@@ -228,7 +228,7 @@ function AppProvider({ children }) {
       })
     } catch (error) {
       console.log('error.response', error.response)
-      logoutUser()
+      // logoutUser()
     }
     clearAlert()
   }
