@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import React, {
-  useReducer, useContext, createContext, useMemo, useEffect,
+  useReducer, useContext, createContext, useMemo,
 } from 'react'
 import axios from 'axios'
 // eslint-disable-next-line import/no-cycle
@@ -232,10 +232,6 @@ function AppProvider({ children }) {
     }
     clearAlert()
   }
-
-  useEffect(() => {
-    getJobs()
-  }, [])
 
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
