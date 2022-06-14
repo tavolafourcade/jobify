@@ -1,8 +1,14 @@
 import React from 'react'
+import moment from 'moment'
 
-function Job({ company }) {
+function Job({ company, createdAt }) {
+  let date = moment(createdAt)
+  date = date.format('MMMM Do YYYY')
   return (
-    <h2>{company}</h2>
+    <div>
+      <h2>{company}</h2>
+      <h2>{date}</h2>
+    </div>
   )
 }
 
