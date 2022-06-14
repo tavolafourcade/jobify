@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Job() {
+function Job({ company }) {
   return (
-    <h2>Single Job</h2>
+    <h2>{company}</h2>
   )
 }
 

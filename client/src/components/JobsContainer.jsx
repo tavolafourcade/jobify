@@ -1,8 +1,41 @@
-import React from 'react'
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/jsx-one-expression-per-line */
+import React, { useEffect } from 'react'
+import { useAppContext } from '../context/appContext'
+import Loading from './Loading'
+import Job from './Job'
+import Wrapper from '../assets/wrappers/JobsContainer'
 
 function JobsContainer() {
+  const {
+    getJobs, jobs, isLoading, totalJobs,
+  } = useAppContext()
+
+  useEffect(() => {
+    getJobs()
+  }, [])
+
+  if (isLoading) {
+    return <Loading center />
+  }
+
+  if (jobs.length === 0) {
+    return (
+      <Wrapper>
+        <h2>No jobs to display...</h2>
+      </Wrapper>
+    )
+  }
   return (
-    <h2>Jobs Container</h2>
+    <Wrapper>
+      <h5>
+        {totalJobs} job{jobs.length > 1 && 's'} found
+      </h5>
+      <div className="jobs">
+        {jobs.map((job) => <Job key={job._id} {...job} />)}
+      </div>
+    </Wrapper>
   )
 }
 
