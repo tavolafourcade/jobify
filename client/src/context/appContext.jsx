@@ -233,6 +233,14 @@ function AppProvider({ children }) {
     clearAlert()
   }
 
+  const setEditJob = (id) => {
+    console.log(`setEditJob ${id}`)
+  }
+
+  const deleteJob = (id) => {
+    console.log(`deleteJob ${id}`)
+  }
+
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
     ...state,
@@ -246,6 +254,8 @@ function AppProvider({ children }) {
     clearValues,
     createJob,
     getJobs,
+    setEditJob,
+    deleteJob,
   }))
 
   // children refers to our application
