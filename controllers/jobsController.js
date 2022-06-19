@@ -44,6 +44,11 @@ const updateJob = async (req, res) => {
     new: true,
     runValidators: true,
   });
+
+  // Alternative approach
+  // job.position = position;
+  // job.company = company;
+  // await job.save();
   res.status(StatusCodes.OK).json({ updatedJob });
 };
 
