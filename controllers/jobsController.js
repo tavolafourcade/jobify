@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import { StatusCodes } from 'http-status-codes';
+import checkPermissions from '../utils/checkPermissions.js';
 import Job from '../models/Job.js';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
 // UnAuthenticatedError
@@ -39,6 +40,8 @@ const updateJob = async (req, res) => {
   }
 
   // check permission
+  // We pass the req.user instead of req.user.userId because we also want to check for the user role
+  checkPermissions(req.user, job.createdBy);
 
   const updatedJob = await Job.findOneAndUpdate({ _id: jobId }, req.body, {
     new: true,
