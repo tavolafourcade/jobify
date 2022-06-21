@@ -24,6 +24,7 @@ import {
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
   SET_EDIT_JOB,
+  DELETE_JOB_BEGIN,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -241,8 +242,16 @@ function AppProvider({ children }) {
   const editJob = () => {
     console.log('edit job')
   }
-  const deleteJob = (id) => {
-    console.log(`deleteJob ${id}`)
+
+  const deleteJob = async (jobId) => {
+    dispatch({ type: DELETE_JOB_BEGIN })
+    try {
+      await authFetch.delete(`/jobs/${jobId}`) // By default is get request
+      getJobs()
+    } catch (error) {
+      console.log('error.response', error.response)
+      logoutUser()
+    }
   }
 
   // Spreading initialState values to be passed down to our components.
