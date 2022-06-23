@@ -68,12 +68,19 @@ const updateJob = async (req, res) => {
 };
 
 const showStats = async (req, res) => {
-  const stats = await Job.aggregate([
+  let stats = await Job.aggregate([
     // Only show jobs created by the user
     { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
     // Group by userId and count the number of jobs
     { $group: { _id: '$status', count: { $sum: 1 } } },
   ]);
+
+  stats = stats.reduce((total, status) => {
+    const { _id: title, count } = status;
+    // eslint-disable-next-line no-param-reassign
+    total[title] = count;
+    return total;
+  }, {});
   res.status(StatusCodes.OK).json({ stats });
 };
 
