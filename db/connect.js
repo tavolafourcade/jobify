@@ -1,9 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 // function that will connect to the URL
 // Mongoose return a promess so we'll use an async await
-const connectDB = (url) => {
-    return mongoose.connect(url)
-}
+const connectDB = (url) => mongoose.connect(url);
 
-export default connectDB
+export default connectDB;
