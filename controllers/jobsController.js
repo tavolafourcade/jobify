@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
 import checkPermissions from '../utils/checkPermissions.js';
 import Job from '../models/Job.js';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
@@ -67,7 +68,13 @@ const updateJob = async (req, res) => {
 };
 
 const showStats = async (req, res) => {
-  res.send('showStats');
+  const stats = await Job.aggregate([
+    // Only show jobs created by the user
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
+    // Group by userId and count the number of jobs
+    // { $group: { _id: '$createdBy', count: { $sum: 1 } } },
+  ]);
+  res.status(StatusCodes.OK).json({ stats });
 };
 
 export {
