@@ -72,7 +72,7 @@ const showStats = async (req, res) => {
     // Only show jobs created by the user
     { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
     // Group by userId and count the number of jobs
-    // { $group: { _id: '$createdBy', count: { $sum: 1 } } },
+    { $group: { _id: '$status', count: { $sum: 1 } } },
   ]);
   res.status(StatusCodes.OK).json({ stats });
 };
