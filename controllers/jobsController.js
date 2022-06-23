@@ -81,7 +81,16 @@ const showStats = async (req, res) => {
     total[title] = count;
     return total;
   }, {});
-  res.status(StatusCodes.OK).json({ stats });
+
+  const defaultStats = {
+    pending: stats.pending || 0,
+    interview: stats.interview || 0,
+    declined: stats.declined || 0,
+  };
+
+  // eslint-disable-next-line prefer-const
+  let monthlyApplications = [];
+  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
 
 export {
