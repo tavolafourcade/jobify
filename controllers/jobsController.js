@@ -89,7 +89,28 @@ const showStats = async (req, res) => {
   };
 
   // eslint-disable-next-line prefer-const
-  let monthlyApplications = [];
+  let monthlyApplications = await Job.aggregate([
+    // Only show jobs created by the user
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
+    // Group by year and month and count the number of jobs
+    {
+      $group: {
+        _id: {
+          year: {
+            $year: '$createdAt',
+          },
+          month: {
+            $month: '$createdAt',
+          },
+        },
+        count: { $sum: 1 },
+      },
+    },
+    // Sort by year and month (most recent job applications first)
+    { $sort: { '_id.year': -1, '_id.month': -1 } },
+    { $limit: 6 },
+  ]);
+
   res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
 
