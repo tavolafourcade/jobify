@@ -38,11 +38,20 @@ const getAllJobs = async (req, res) => {
 
   const queryObject = { createdBy: req.user.userId };
 
+  // Add stuff based on condition
+
   if (status !== 'all') {
     queryObject.status = status;
   }
 
-  // Add stuff based on condition
+  if (jobType !== 'all') {
+    queryObject.jobType = jobType;
+  }
+
+  if (search) {
+    queryObject.position = { $regex: search, $options: 'i' }; // i = case insensitive
+  }
+
   // No Await
   // eslint-disable-next-line prefer-const
   let result = Job.find(queryObject);
