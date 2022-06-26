@@ -30,6 +30,7 @@ import {
   EDIT_JOB_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -306,7 +307,7 @@ function AppProvider({ children }) {
   }
 
   const clearFilters = () => {
-    console.log('clear filters')
+    dispatch({ type: CLEAR_FILTERS })
   }
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
