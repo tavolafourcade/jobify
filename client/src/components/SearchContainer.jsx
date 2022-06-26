@@ -1,4 +1,5 @@
 import React from 'react'
+// eslint-disable-next-line import/no-cycle
 import { FormRow, FormRowSelect } from '.'
 import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/SearchContainer'
@@ -21,6 +22,11 @@ function SearchContainer() {
     if (isLoading) return // prevent search while loading
     handleChange({ name: e.target.name, value: e.target.value })
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    clearFilters()
+  }
   return (
     <Wrapper>
       <form className="form">
@@ -33,7 +39,31 @@ function SearchContainer() {
             value={search}
             handleChange={handleSearch}
           />
-          {/* Rest of inputs */}
+          {/* Search status */}
+          <FormRowSelect
+            labelText="Status"
+            name="searchStatus"
+            value={searchStatus}
+            handleChange={handleSearch}
+            list={[ 'all', ...statusOptions ]}
+          />
+          {/* Search type */}
+          <FormRowSelect
+            labelText="Type"
+            name="searchType"
+            value={searchType}
+            handleChange={handleSearch}
+            list={[ 'all', ...jobTypeOptions ]}
+          />
+          {/* Sort */}
+          <FormRowSelect
+            labelText="Sort"
+            name="sort"
+            value={sort}
+            handleChange={handleSearch}
+            list={sortOptions}
+          />
+          <button type="submit" className="btn btn-block btn-danger" disabled={isLoading} onClick={handleSubmit}>Clear filters</button>
         </div>
       </form>
     </Wrapper>
