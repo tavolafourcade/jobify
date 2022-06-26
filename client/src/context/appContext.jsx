@@ -61,6 +61,11 @@ const initialState = {
   numOfPages         : 1,
   stats              : {},
   monthlyApplications: {},
+  search             : '',
+  searchStatus       : 'all',
+  searchType         : 'all',
+  sort               : 'latest',
+  sortOptions        : [ 'latest', 'oldest', 'a-z', 'z-a' ],
 }
 
 // Context provides a way to pass data through the component tree without
@@ -300,6 +305,9 @@ function AppProvider({ children }) {
     clearAlert()
   }
 
+  const clearFilters = () => {
+    console.log('clear filters')
+  }
   // Spreading initialState values to be passed down to our components.
   const contextValues = useMemo(() => ({
     ...state,
@@ -317,6 +325,7 @@ function AppProvider({ children }) {
     editJob,
     deleteJob,
     showStats,
+    clearFilters,
   }))
 
   // children refers to our application
