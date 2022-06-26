@@ -57,6 +57,22 @@ const getAllJobs = async (req, res) => {
   let result = Job.find(queryObject);
 
   // chain sort conditions
+
+  if (sort === 'latest') {
+    result = result.sort('-createdAt'); // -createdAt = descending
+  }
+
+  if (sort === 'oldest') {
+    result = result.sort('createdAt');
+  }
+
+  if (sort === 'a-z') {
+    result = result.sort('position');
+  }
+
+  if (sort === 'z-a') {
+    result = result.sort('-position'); // -position = descending
+  }
   const jobs = await result;
   // Get me all jobs in which status matches to the status query param
   res
