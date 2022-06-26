@@ -32,7 +32,9 @@ const deleteJob = async (req, res) => {
 };
 
 const getAllJobs = async (req, res) => {
-  const jobs = await Job.find({ createdBy: req.user.userId });
+  const { status } = req.query;
+  // Get me all jobs in which status matches to the status query param
+  const jobs = await Job.find({ createdBy: req.user.userId, status });
   res
     .status(StatusCodes.OK)
     .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });
