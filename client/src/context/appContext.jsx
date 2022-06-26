@@ -232,7 +232,13 @@ function AppProvider({ children }) {
   }
 
   const getJobs = async () => {
-    const url = '/jobs'
+    const {
+      search, searchStatus, searchType, sort,
+    } = state
+    let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`
+    if (search) {
+      url += `&search=${search}`
+    }
     dispatch({ type: GET_JOBS_BEGIN })
     try {
       const { data } = await authFetch(url) // By default is get request
