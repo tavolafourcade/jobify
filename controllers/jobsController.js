@@ -32,9 +32,24 @@ const deleteJob = async (req, res) => {
 };
 
 const getAllJobs = async (req, res) => {
-  const { status } = req.query;
+  const {
+    search, status, jobType, sort,
+  } = req.query;
+
+  const queryObject = { createdBy: req.user.userId };
+
+  if (status !== 'all') {
+    queryObject.status = status;
+  }
+
+  // Add stuff based on condition
+  // No Await
+  // eslint-disable-next-line prefer-const
+  let result = Job.find(queryObject);
+
+  // chain sort conditions
+  const jobs = await result;
   // Get me all jobs in which status matches to the status query param
-  const jobs = await Job.find({ createdBy: req.user.userId, status });
   res
     .status(StatusCodes.OK)
     .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });
