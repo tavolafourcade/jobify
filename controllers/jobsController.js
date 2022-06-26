@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import { StatusCodes } from 'http-status-codes';
 import mongoose from 'mongoose';
+import moment from 'moment';
 import checkPermissions from '../utils/checkPermissions.js';
 import Job from '../models/Job.js';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
@@ -110,6 +111,16 @@ const showStats = async (req, res) => {
     { $sort: { '_id.year': -1, '_id.month': -1 } },
     { $limit: 6 },
   ]);
+
+  monthlyApplications = monthlyApplications.map((item) => {
+    const { _id: { year, month }, count } = item;
+    const date = moment()
+      .month(month - 1)
+      .year(year)
+      .format('MMM YYYY');
+
+    return { date, count };
+  }).reverse(); // Reverse the array so the most recent job applications are first
 
   res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
