@@ -15,7 +15,6 @@ function Stats() {
   if (isLoading) {
     return <Loading center />
   }
-  console.log('monthlyApplications', monthlyApplications)
   return (
     <>
       <StatsContainer />

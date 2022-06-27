@@ -59,7 +59,6 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  // console.log('req.user', req.user);
   const {
     email, name, lastname, location,
   } = req.body;

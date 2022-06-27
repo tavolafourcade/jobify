@@ -47,7 +47,6 @@ function Register() {
       setupUser({ currentUser, endPoint: 'register', alertText: 'You have successfully registered! Redirecting...' })
     }
     clearAlert()
-    console.log('VALUES', values)
   }
 
   // PROBLEMA!

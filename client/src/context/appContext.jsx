@@ -105,7 +105,6 @@ function AppProvider({ children }) {
   authFetch.interceptors.response.use(
     (response) => response,
     (error) => {
-      // console.log(error.response)
       if (error.response.status === 401) {
         // eslint-disable-next-line no-use-before-define
         logoutUser()
@@ -146,8 +145,6 @@ function AppProvider({ children }) {
     dispatch({ type: SETUP_USER_BEGIN })
     try {
       const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
-      // console.log('currentUserLogged', data)
-      // console.log('ENDPOINT', endPoint)
       const { user, token, userLocation } = data
       dispatch({
         type   : SETUP_USER_SUCCESS,
@@ -249,8 +246,7 @@ function AppProvider({ children }) {
         payload: { jobs, totalJobs, numOfPages },
       })
     } catch (error) {
-      console.log('error.response', error.response)
-      // logoutUser()
+      logoutUser()
     }
     clearAlert()
   }
@@ -288,7 +284,6 @@ function AppProvider({ children }) {
       await authFetch.delete(`/jobs/${jobId}`) // By default is get request
       getJobs()
     } catch (error) {
-      console.log('error.response', error.response)
       logoutUser()
     }
   }
@@ -307,8 +302,7 @@ function AppProvider({ children }) {
         },
       })
     } catch (error) {
-      console.log('error.response', error.response)
-      // logoutUser()
+      logoutUser()
     }
     clearAlert()
   }
