@@ -5,11 +5,12 @@ import React, { useEffect } from 'react'
 import { useAppContext } from '../context/appContext'
 import Loading from './Loading'
 import Job from './Job'
+import PageBtnContainer from './PageBtnContainer'
 import Wrapper from '../assets/wrappers/JobsContainer'
 
 function JobsContainer() {
   const {
-    getJobs, jobs, isLoading, totalJobs, search, searchStatus, searchType, sort,
+    getJobs, jobs, isLoading, totalJobs, search, searchStatus, searchType, sort, numOfPages,
   } = useAppContext()
 
   useEffect(() => {
@@ -35,6 +36,7 @@ function JobsContainer() {
       <div className="jobs">
         {jobs.map((job) => <Job key={job._id} {...job} />)}
       </div>
+      {numOfPages > 1 && <PageBtnContainer />}
     </Wrapper>
   )
 }
