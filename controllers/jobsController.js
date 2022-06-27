@@ -73,6 +73,11 @@ const getAllJobs = async (req, res) => {
   if (sort === 'z-a') {
     result = result.sort('-position'); // -position = descending
   }
+
+  const limit = 10; // 0 = no limit
+  const skip = 0; // 0 = no skip
+
+  result = result.skip(skip).limit(limit);
   const jobs = await result;
   // Get me all jobs in which status matches to the status query param
   res
