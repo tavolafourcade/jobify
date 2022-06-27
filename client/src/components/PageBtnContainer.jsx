@@ -4,7 +4,7 @@ import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/PageBtnContainer'
 
 function PageBtnContainer() {
-  const { numOfPages, page } = useAppContext()
+  const { numOfPages, page, changePage } = useAppContext()
 
   // create an array of numbers from 1 to numOfPages
   const pages = Array.from({ length: numOfPages }, (_, index) => index + 1)
@@ -24,7 +24,7 @@ function PageBtnContainer() {
       </button>
       <div className="btn-container">
         {pages.map((pageNumber) => (
-          <button type="button" className={pageNumber === page ? 'pageBtn active' : 'pageBtn'} key={pageNumber} onClick={() => console.log('change page')}>
+          <button type="button" className={pageNumber === page ? 'pageBtn active' : 'pageBtn'} key={pageNumber} onClick={() => changePage(pageNumber)}>
             {pageNumber}
           </button>
         ))}
