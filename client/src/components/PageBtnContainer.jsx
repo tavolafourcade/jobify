@@ -10,11 +10,19 @@ function PageBtnContainer() {
   const pages = Array.from({ length: numOfPages }, (_, index) => index + 1)
 
   const prevPage = () => {
-    console.log('prevPage')
+    let newPage = page - 1
+    if (newPage < 1) {
+      newPage = 1
+    }
+    changePage(newPage)
   }
 
   const nextPage = () => {
-    console.log('nextPage')
+    let newPage = page + 1
+    if (newPage > numOfPages) {
+      newPage = numOfPages
+    }
+    changePage(newPage)
   }
   return (
     <Wrapper>
