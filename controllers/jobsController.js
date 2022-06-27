@@ -74,15 +74,17 @@ const getAllJobs = async (req, res) => {
     result = result.sort('-position'); // -position = descending
   }
 
-  const limit = 10; // 0 = no limit
-  const skip = 0; // 0 = no skip
+  // setup pagination
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10; // 0 = no limit
+  const skip = (page - 1) * limit; // 0 = page 1, 2 = page 2, etc
 
   result = result.skip(skip).limit(limit);
   const jobs = await result;
   // Get me all jobs in which status matches to the status query param
   res
     .status(StatusCodes.OK)
-    .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });
+    .json({ jobs, totalJobs: jobs.length, numOfPages: page });
 };
 
 const updateJob = async (req, res) => {
