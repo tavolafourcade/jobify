@@ -128,6 +128,7 @@ const reducer = (state, action) => {
   if (action.type === HANDLE_CHANGE) {
     return {
       ...state,
+      page                 : 1, // reset page to 1 when changing values
       [action.payload.name]: action.payload.value,
     }
   }
