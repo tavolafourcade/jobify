@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import 'express-async-errors';
 import morgan from 'morgan';
 
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 // db and authenticateUser
 import connectDB from './db/connect.js';
 
@@ -28,8 +30,16 @@ dotenv.config();
 
 // Using CORS package
 // app.use(cors())
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// only when ready to deploy
+app.use(express.static(path.resolve(__dirname, './client/build')));
+
 // Making the JSON data available in the controller
 app.use(express.json());
+
 // Set up a dummy route
 app.get('/', (req, res) => {
   // throw new Error('Error!!!')
@@ -43,6 +53,9 @@ app.get('/api/v1', (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build/', 'index.html')); // relative path for deployment
+});
 // Using the middleware to look for all Http methods and Routes.
 // If none are found
 app.use(notFoundMiddleware);
