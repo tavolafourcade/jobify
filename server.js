@@ -7,6 +7,11 @@ import morgan from 'morgan';
 
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
+
 // db and authenticateUser
 import connectDB from './db/connect.js';
 
@@ -39,6 +44,11 @@ app.use(express.static(path.resolve(__dirname, './client/build')));
 
 // Making the JSON data available in the controller
 app.use(express.json());
+
+// Security packages
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 
 // Set up a dummy route
 app.get('/', (req, res) => {

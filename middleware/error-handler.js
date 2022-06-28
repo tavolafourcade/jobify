@@ -2,7 +2,6 @@ import { StatusCodes } from 'http-status-codes';
 
 // eslint-disable-next-line no-unused-vars
 const errorHandlerMiddleware = (err, req, res, next) => {
-  console.log(err);
   const defaultError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     msg: err.message || 'Something went wrong, try again later',
