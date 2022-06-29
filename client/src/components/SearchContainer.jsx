@@ -1,6 +1,7 @@
 import React from 'react'
 // eslint-disable-next-line import/no-cycle
-import { FormRow, FormRowSelect } from '.'
+import FormRow from './FormRow'
+import FormRowSelect from './FormRowSelect'
 import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/SearchContainer'
 

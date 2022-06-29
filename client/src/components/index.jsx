@@ -5,7 +5,6 @@ import Navbar from './Navbar'
 import SmallSiderbar from './SmallSiderbar'
 import BigSidebar from './BigSidebar'
 import FormRowSelect from './FormRowSelect'
-// eslint-disable-next-line import/no-cycle
 import SearchContainer from './SearchContainer'
 import JobsContainer from './JobsContainer'
 import StatsContainer from './StatsContainer'
